@@ -1,13 +1,18 @@
+// Core node and 3rd parties
+const morgan = require("morgan");
+const tourRouter = require("./routes/tourRouts");
+const userRouter = require("./routes/userRouts");
+
+// EXPRESS
 const express = require("express");
-
 const app = express();
-const port = 3000;
 
-// * ROUTS
-app.get("/", (res, req) => {
-    res.statusCode(200).send("Server is up and running...");
-});
+// MIDLEWARE
+app.use(morgan("dev"));
+app.use(express.json());
 
-app.listen(port, () => {
-    console.log(`App running on  port: ${port}...`);
-});
+//  ROUTING
+app.use("/api/v1/tours", tourRouter);
+app.use("/api/v1/users", userRouter);
+
+module.exports = app;
