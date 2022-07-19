@@ -1,4 +1,4 @@
-// Core node and 3rd parties
+// CORE and 3rd parties
 const morgan = require("morgan");
 const tourRouter = require("./routes/tourRouts");
 const userRouter = require("./routes/userRouts");
