@@ -8,8 +8,12 @@ const express = require("express");
 const app = express();
 
 // MIDLEWARE
-app.use(morgan("dev"));
+if (process.env.NODE_ENV === "development") {
+    app.use(morgan("dev"));
+}
+
 app.use(express.json());
+app.use(express.static(`${__dirname}/public`));
 
 // ROUTING
 app.use("/api/v1/tours", tourRouter);
