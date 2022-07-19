@@ -11,7 +11,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-//  ROUTING
+// ROUTING
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 
