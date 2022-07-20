@@ -1,10 +1,10 @@
+/* eslint-disable prettier/prettier */
 // CORE and 3rd parties
 const morgan = require("morgan");
+const express = require("express");
 const tourRouter = require("./routes/tourRouts");
 const userRouter = require("./routes/userRouts");
-
 // EXPRESS
-const express = require("express");
 const app = express();
 
 // MIDLEWARE
