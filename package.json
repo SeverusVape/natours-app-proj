@@ -4,8 +4,8 @@
     "description": "pet-project with nodejs, express, mongodb",
     "main": "app.js",
     "scripts": {
-        "start:dev": "nodemon server.js",
-        "start:prod": "NODE_ENV=production nodemon server.js"
+        "start": "nodemon server.js",
+        "prod": "NODE_ENV=production nodemon server.js"
     },
     "author": "SeverusVape",
     "license": "ISC",
