@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 class AppError extends Error {
     constructor(message, statusCode) {
         super(message);

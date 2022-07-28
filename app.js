@@ -2,10 +2,11 @@
 // CORE and 3rd parties
 const morgan = require("morgan");
 const express = require("express");
-const tourRouter = require("./routes/tourRouts");
-const userRouter = require("./routes/userRouts");
 const AppError = require("./utils/appError");
 const globalError = require("./controllers/errorController");
+const tourRouter = require("./routes/tourRouts");
+const userRouter = require("./routes/userRouts");
+
 // EXPRESS
 const app = express();
 
