@@ -20,6 +20,13 @@ const userSchema = new mongoose.Schema({
     photo: {
         type: String,
     },
+    role: {
+        type: String,
+        // ! ADD 'admin' roles only in MONGODB ATLAS manualy, but not in schema!!!
+        // ! All roles that can make changes in app should be setted manually!
+        enum: ["user", "guide", "lead-guide", "admin"],
+        default: "user",
+    },
     password: {
         type: String,
         required: [true, "Password is required."],
@@ -38,7 +45,7 @@ const userSchema = new mongoose.Schema({
             message: "Passwords are not the same.",
         },
     },
-    passwordChangedAt: { type: Date, default: Date.now }, // ! Working Strange
+    passwordChangedAt: Date,
 });
 
 userSchema.pre("save", async function (next) {

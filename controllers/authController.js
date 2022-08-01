@@ -14,8 +14,10 @@ exports.signup = catchAsync(async (req, res, next) => {
     const newUser = await User.create({
         name: req.body.name,
         email: req.body.email,
+        role: req.body.role,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
+        passwordChangedAt: req.body.passwordChangedAt,
     });
 
     const token = signToken(newUser._id);
@@ -91,3 +93,14 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.user = currentUser;
     next();
 });
+
+exports.restrictTo =
+    (...roles) =>
+    (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(
+                new AppError("You don't have permissions to make changes!", 403)
+            );
+        }
+        next();
+    };
