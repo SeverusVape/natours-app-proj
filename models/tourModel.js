@@ -142,6 +142,15 @@ tourSchema.virtual("durationWeeks").get(function () {
 //     next();
 // });
 
+tourSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: "guides",
+        select: "-__v -passwordChangedAt",
+    });
+
+    next();
+});
+
 // AGREGATION MIDLWARE
 // tourSchema.pre("aggregate", function (next) {
 //     this.pipline().unshift({ $match: { secretTour: { $ne: true } } });
