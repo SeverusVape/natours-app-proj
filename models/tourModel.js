@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
-// schema
 const mongoose = require("mongoose");
-// const slugify = require("slugify");
-
+//const slugify = require("slugify");
+//const User = require("./userModel");
 
 const tourSchema = new mongoose.Schema(
     {
@@ -12,7 +11,7 @@ const tourSchema = new mongoose.Schema(
             trim: true,
             unique: true,
             maxlength: [40, "Tour must have 40 or less characters..."],
-            minlength: [10, "Tour must have minimum 10 characters..."], 
+            minlength: [10, "Tour must have minimum 10 characters..."],
         },
         slug: String,
         duration: {
@@ -73,6 +72,36 @@ const tourSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        startLocation: {
+            // GeoJSON
+            type: {
+                type: String,
+                default: "Point",
+                enum: ["Point"],
+            },
+            coordinates: [Number],
+            address: String,
+            description: String,
+        },
+        locations: [
+            {
+                type: {
+                    type: String,
+                    default: "Point",
+                    enum: ["Point"],
+                },
+                coordinates: [Number],
+                address: String,
+                description: String,
+                day: Number,
+            },
+        ],
+        guides: [
+            {
+                type: mongoose.Schema.ObjectId,
+                ref: "User",
+            },
+        ],
     },
     {
         toJSON: { virtuals: true },
@@ -83,11 +112,28 @@ const tourSchema = new mongoose.Schema(
 tourSchema.virtual("durationWeeks").get(function () {
     return this.duration / 7;
 });
-// DOCUMENT MIDLWARE
+
+tourSchema.virtual("reviews", {
+    ref: "Reviews",
+    foreignField: "tour",
+    localField: "_id",
+});
+
+// MIDDLWARES
+
 // tourSchema.pre("save", function (next) {
 //     this.slug = slugify(this.name, { lower: true });
 //     next();
 // });
+
+// tourSchema.pre("save", async function (next) {
+//     const guidesPromises = this.guides.map(
+//         async (id) => await User.findById(id)
+//     );
+//     this.guides = await Promise.all(guidesPromises);
+//     next();
+// });
+
 // tourSchema.pre("save", function (next) {
 //     //
 //     next();
@@ -102,6 +148,15 @@ tourSchema.virtual("durationWeeks").get(function () {
 //     this.find({ secretTour: { $ne: true } });
 //     next();
 // });
+
+tourSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: "guides",
+        select: "-__v -passwordChangedAt",
+    });
+
+    next();
+});
 
 // AGREGATION MIDLWARE
 // tourSchema.pre("aggregate", function (next) {
