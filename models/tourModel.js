@@ -113,7 +113,14 @@ tourSchema.virtual("durationWeeks").get(function () {
     return this.duration / 7;
 });
 
-// DOCUMENT MIDLWARE
+tourSchema.virtual("reviews", {
+    ref: "Reviews",
+    foreignField: "tour",
+    localField: "_id",
+});
+
+// MIDDLWARES
+
 // tourSchema.pre("save", function (next) {
 //     this.slug = slugify(this.name, { lower: true });
 //     next();
