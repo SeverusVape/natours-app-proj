@@ -21,32 +21,14 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
     });
 });
 
-// CREATE ONE
-exports.createReview = catchAsync(async (req, res, next) => {
+exports.setTourUserIds = (req, res, next) => {
     if (!req.body.tour) req.body.tour = req.params.tourId;
     if (!req.body.user) req.body.user = req.user.id;
+    next();
+};
 
-    const newReviw = await Review.create(req.body);
-
-    // if (!newReviw) return next(new AppError("Review wasn't created...", 400));
-
-    res.status(200).json({
-        status: "success",
-        data: {
-            review: newReviw,
-        },
-    });
-});
+exports.createReview = factory.createOne(Review);
 
 exports.deleteReview = factory.deleteOne(Review);
 
-// exports.updateReview = catchAsync(async (req, res, next) => {
-//     res.status(200).json({
-//         status: "success",
-//         results: reviews.length,
-//         data: {
-//             reviews,
-//         },
-//     });
-//     return next(new AppError("Review wasn't updated...", 400));
-// });
+exports.updateReview = factory.updateOne(Review);
