@@ -1,60 +1,22 @@
 const Review = require("../models/reviewModel");
-const AppError = require("../utils/appError");
-const catchAsync = require("../utils/catchAsync");
+// const AppError = require("../utils/appError");
+// const catchAsync = require("../utils/catchAsync");
+const factory = require("./handlerFactory");
 
 // GET ALL
-exports.getAllReviews = catchAsync(async (req, res, next) => {
-    let filter = {};
-    if (req.params.tourId) filter = { tour: req.params.tourId };
 
-    const reviews = await Review.find(filter);
-
-    // if (!reviews) return next(new AppError("No reviews found.", 404));
-
-    res.status(200).json({
-        status: "success",
-        results: reviews.length,
-        data: {
-            reviews,
-        },
-    });
-});
-
-// CREATE ONE
-exports.createReview = catchAsync(async (req, res, next) => {
+exports.setTourUserIds = (req, res, next) => {
     if (!req.body.tour) req.body.tour = req.params.tourId;
     if (!req.body.user) req.body.user = req.user.id;
+    next();
+};
 
-    const newReviw = await Review.create(req.body);
+exports.getAllReviews = factory.getAll(Review);
 
-    // if (!newReviw) return next(new AppError("Review wasn't created...", 400));
+exports.getOneReview = factory.getOne(Review);
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            review: newReviw,
-        },
-    });
-});
+exports.createReview = factory.createOne(Review);
 
-// exports.deleteReview = catchAsync(async (req, res, next) => {
-//     res.status(200).json({
-//         status: "success",
-//         results: reviews.length,
-//         data: {
-//             reviews,
-//         },
-//     });
-//     return next(new AppError("Review wasn't deleted...", 400));
-// });
+exports.deleteReview = factory.deleteOne(Review);
 
-// exports.updateReview = catchAsync(async (req, res, next) => {
-//     res.status(200).json({
-//         status: "success",
-//         results: reviews.length,
-//         data: {
-//             reviews,
-//         },
-//     });
-//     return next(new AppError("Review wasn't updated...", 400));
-// });
+exports.updateReview = factory.updateOne(Review);
