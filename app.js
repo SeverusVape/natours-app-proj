@@ -14,6 +14,7 @@ const globalError = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRouts");
 const userRouter = require("./routes/userRouts");
 const reviewRouter = require("./routes/reviewRouts");
+const viewRouter = require("./routes/viewRouts");
 
 // * EXPRESS
 const app = express();
@@ -64,27 +65,8 @@ app.use((req, res, next) => {
     next();
 });
 // ROUTING
-// pug
-app.get("/", (req, res) => {
-    res.status(200).render("base", {
-        tour: "The Forest Hiker",
-        user: "SeverusVape",
-    });
-});
 
-app.get("/overview", (req, res) => {
-    res.status(200).render("overview", {
-        title: "All Tours",
-    });
-});
-
-app.get("/tour", (req, res) => {
-    res.status(200).render("tour", {
-        title: "The Forest Hiker Tour",
-    });
-});
-
-// api
+app.use("/", viewRouter);
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/reviews", reviewRouter);
