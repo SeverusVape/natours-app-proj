@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 // CORE and 3rd parties
 const morgan = require("morgan");
+const path = require("path");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
@@ -13,11 +14,16 @@ const globalError = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRouts");
 const userRouter = require("./routes/userRouts");
 const reviewRouter = require("./routes/reviewRouts");
+const viewRouter = require("./routes/viewRouts");
 
 // * EXPRESS
 const app = express();
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 // * GLOBAL MIDLEWAREs
+// static
+app.use(express.static(path.join(__dirname, "public")));
 // set security http headers
 app.use(helmet());
 
@@ -54,12 +60,13 @@ app.use(
     })
 );
 // serving static
-app.use(express.static(`${__dirname}/public`));
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
     next();
 });
 // ROUTING
+
+app.use("/", viewRouter);
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/reviews", reviewRouter);
