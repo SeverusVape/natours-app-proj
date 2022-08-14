@@ -4,6 +4,7 @@ html
         block head
             meta(charset='UTF-8')
             meta(name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no')
+            meta(http-equiv="Content-Security-Policy" content="script-src 'self' api.mapbox.com;worker-src blob: ;connect-src https://*.tiles.mapbox.com https://api.mapbox.com https://events.mapbox.com")
             link(rel ='stylesheet' href='/css/style.css')
             link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
             link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
