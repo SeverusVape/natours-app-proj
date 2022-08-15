@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
-const cryoto = require("crypto");
+const crypto = require("crypto");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
@@ -75,8 +75,9 @@ exports.protect = catchAsync(async (req, res, next) => {
         req.headers.authorization.startsWith("Bearer")
     ) {
         token = req.headers.authorization.split(" ")[1];
+    } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
     }
-
     if (!token) {
         return next(
             new AppError("You are not logged in! Log in to get access.", 401)
