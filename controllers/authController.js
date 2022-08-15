@@ -110,6 +110,28 @@ exports.protect = catchAsync(async (req, res, next) => {
     next();
 });
 
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+    if (req.cookies.jwt) {
+        const decoded = await promisify(jwt.verify)(
+            req.cookies.jwt,
+            process.env.JWT_SECRET
+        );
+        // user exist?
+        const currentUser = await User.findById(decoded.id);
+        if (!currentUser) {
+            return next();
+        }
+        // user changed password after JWT was issued?
+        if (currentUser.changedPasswordAfter(decoded.iat)) {
+            return next();
+        }
+
+        res.locals.user = currentUser;
+        return next();
+    }
+    next();
+});
+
 exports.restrictTo =
     (...roles) =>
     (req, res, next) => {
