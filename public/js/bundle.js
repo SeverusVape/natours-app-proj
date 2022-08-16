@@ -186,12 +186,6 @@ function () {
 }();
 
 exports.login = login;
-document.querySelector(".form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-  login(email, password);
-});
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
