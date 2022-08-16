@@ -1,7 +1,6 @@
 const express = require("express");
 const viewsController = require("../controllers/viewsController");
 const authController = require("../controllers/authController");
-<<<<<<< HEAD
 // const CSP = "Content-Security-Policy";
 // const POLICY =
 //     "default-src 'self' https://*.mapbox.com ;" +
@@ -19,12 +18,6 @@ const authController = require("../controllers/authController");
 //     res.setHeader(CSP, POLICY);
 //     next();
 // });
-=======
-
-const router = express.Router();
-
-router.use(authController.isLoggedIn);
->>>>>>> f287947206f88a822085d969b1d18958bab0d825
 
 const router = express.Router();
 

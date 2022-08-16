@@ -14,10 +14,7 @@
         "axios": "^0.18.0",
         "bcryptjs": "^2.4.3",
         "cookie-parser": "^1.4.6",
-<<<<<<< HEAD
-=======
         "cors": "^2.8.5",
->>>>>>> f287947206f88a822085d969b1d18958bab0d825
         "dotenv": "^16.0.1",
         "express": "^4.16.4",
         "express-mongo-sanitize": "^2.2.0",
