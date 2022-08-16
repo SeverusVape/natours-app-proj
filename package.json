@@ -13,6 +13,7 @@
     "author": "SeverusVape",
     "license": "ISC",
     "dependencies": {
+        "@babel/polyfill": "^7.12.1",
         "axios": "^0.18.0",
         "bcryptjs": "^2.4.3",
         "cookie-parser": "^1.4.6",
