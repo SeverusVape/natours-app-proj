@@ -1,6 +1,6 @@
 const express = require("express");
 const viewsController = require("../controllers/viewsController");
-
+const authController = require("../controllers/authController");
 // const CSP = "Content-Security-Policy";
 // const POLICY =
 //     "default-src 'self' https://*.mapbox.com ;" +
@@ -14,14 +14,17 @@ const viewsController = require("../controllers/viewsController");
 //     "style-src 'self' https: 'unsafe-inline';" +
 //     "upgrade-insecure-requests;";
 
-const router = express.Router();
-
 // router.use((req, res, next) => {
 //     res.setHeader(CSP, POLICY);
 //     next();
 // });
 
+const router = express.Router();
+
+router.use(authController.isLoggedIn);
+
 router.get("/", viewsController.getOverview);
 router.get("/tour/:slug", viewsController.getTour);
+router.get("/login", viewsController.getLoginForm);
 
 module.exports = router;
