@@ -27,12 +27,14 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 // set security http headers
 
-app.use(
-    helmet({
-        contentSecurityPolicy: false,
-        crossOriginEmbedderPolicy: false,
-    })
-);
+app.use(helmet());
+
+// app.use(
+//     helmet({
+//         contentSecurityPolicy: false,
+//         crossOriginEmbedderPolicy: false,
+//     })
+// );
 
 // development logging
 if (process.env.NODE_ENV === "development") {
@@ -73,8 +75,8 @@ app.use((req, res, next) => {
     console.log(req.cookies);
     next();
 });
-// ROUTING
 
+// ROUTING
 app.use("/", viewRouter);
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
