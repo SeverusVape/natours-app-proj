@@ -18,7 +18,20 @@ export const login = async (email, password) => {
             }, 1500);
         }
     } catch (error) {
-        alert();
         showAlert("error", error.response.data.message);
+    }
+};
+
+export const logOut = async () => {
+    try {
+        const res = await axios({
+            method: "GET",
+            url: "http://127.0.0.1:3000/api/v1/users/logout",
+        });
+        if (res.data.status === "success") {
+            location.reload(true);
+        }
+    } catch (err) {
+        console.log("error", "Error login out, try again...");
     }
 };
