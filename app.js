@@ -26,9 +26,6 @@ app.set("views", path.join(__dirname, "views"));
 // static
 app.use(express.static(path.join(__dirname, "public")));
 // set security http headers
-
-// app.use(helmet());
-
 app.use(
     helmet({
         contentSecurityPolicy: false,
@@ -72,6 +69,7 @@ app.use(
 // serving static
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
+    console.log(req.cookies);
     next();
 });
 

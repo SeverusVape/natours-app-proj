@@ -4,7 +4,6 @@ html
         block head
             meta(charset='UTF-8')
             meta(name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no')
-            //-meta(http-equiv="Content-Security-Policy" content="script-src 'self' api.mapbox.com;worker-src blob: ;connect-src https://*.tiles.mapbox.com https://api.mapbox.com https://events.mapbox.com")
             link(rel ='stylesheet' href='/css/style.css')
             link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
             link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
@@ -21,6 +20,8 @@ html
 
         // FOOTER
         include _footer
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js')
-        script(src='/js/mapbox.js')
-        script(src='/js/login.js')
+        //- script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
+        //- script(src='/js/login.js') 
+        //- script(src='/js/mapbox.js')
+        script(src='/js/bundler.js') 
+
